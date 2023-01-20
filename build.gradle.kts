@@ -6,17 +6,17 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.time.Duration
 
 plugins {
-    kotlin("jvm") version "1.6.10"
+    kotlin("jvm") version "1.8.0"
     `java-library`
     `maven-publish`
     signing
     jacoco
-    id("org.sonarqube") version "3.3"
+    id("org.sonarqube") version "3.5.0.2730"
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
 }
 
 group = "io.justdevit.math"
-version = "0.1.0"
+version = "0.2.0"
 
 repositories {
     mavenCentral()
@@ -28,13 +28,13 @@ dependencies {
     implementation(kotlin("stdlib"))
     implementation("org.apache.commons:commons-math3:3.6.1")
 
-    testCompileOnly("org.junit.jupiter:junit-jupiter:5.8.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.2")
+    testCompileOnly("org.junit.jupiter:junit-jupiter:5.9.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.9.2")
 
-    testImplementation("org.assertj:assertj-core:3.21.0")
-    testImplementation("io.mockk:mockk:1.12.1")
+    testImplementation("org.assertj:assertj-core:3.24.2")
+    testImplementation("io.mockk:mockk:1.13.3")
 
 }
 
