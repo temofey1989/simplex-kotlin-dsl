@@ -16,7 +16,7 @@ plugins {
 }
 
 group = "io.justdevit.math"
-version = "0.2.0"
+version = "0.1.1"
 
 repositories {
     mavenCentral()
@@ -35,7 +35,6 @@ dependencies {
 
     testImplementation("org.assertj:assertj-core:3.24.2")
     testImplementation("io.mockk:mockk:1.13.3")
-
 }
 
 java {
