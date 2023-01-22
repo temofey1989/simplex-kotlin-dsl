@@ -63,6 +63,10 @@ tasks {
             xml.required.set(true)
         }
     }
+
+    withType<Sign> {
+        onlyIf { !project.version.toString().endsWith("SNAPSHOT") }
+    }
 }
 
 sonarqube {
