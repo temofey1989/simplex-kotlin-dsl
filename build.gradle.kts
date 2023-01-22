@@ -22,7 +22,7 @@ repositories {
     mavenCentral()
 }
 
-java.sourceCompatibility = JavaVersion.VERSION_16
+java.sourceCompatibility = JavaVersion.VERSION_17
 
 dependencies {
     implementation(kotlin("stdlib"))
