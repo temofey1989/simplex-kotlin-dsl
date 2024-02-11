@@ -1,20 +1,19 @@
 package io.justdevit.math.simplex.dsl.model
 
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Test
+import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.shouldBe
 
-internal class LinearExpressionTest {
+class LinearExpressionTest : FreeSpec({
 
-    @Test
-    fun `Should be able to map to linear objective function`() {
+    "Should be able to map to linear objective function" {
         val expression = LinearExpression(listOf(10.0), 20.0)
 
         val result = expression.toLinearObjectiveFunction()
 
         with(result) {
-            assertThat(coefficients.dimension).isEqualTo(1)
-            assertThat(coefficients.getEntry(0)).isEqualTo(10.0)
-            assertThat(constantTerm).isEqualTo(20.0)
+            coefficients.dimension shouldBe 1
+            coefficients.getEntry(0) shouldBe 10.0
+            constantTerm shouldBe 20.0
         }
     }
-}
+})

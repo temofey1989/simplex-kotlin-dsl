@@ -1,70 +1,63 @@
 package io.justdevit.math.simplex.dsl.extensions
 
 import io.justdevit.math.simplex.dsl.model.Parameter
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Nested
-import org.junit.jupiter.api.Test
+import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.collections.shouldContainExactly
+import io.kotest.matchers.shouldBe
 
-internal class ParameterTest {
+class ParameterTest : FreeSpec({
 
-    @Nested
-    inner class NegateTests {
+    "Negate Tests" - {
 
-        @Test
-        fun `Should be able to negate parameter`() {
+        "Should be able to negate parameter" {
             val parameter = Parameter(coefficient = 10.0, index = 1)
 
             val result = parameter.negate()
 
             with(result) {
-                assertThat(coefficient).isEqualTo(-parameter.coefficient)
-                assertThat(index).isEqualTo(parameter.index)
+                coefficient shouldBe -parameter.coefficient
+                index shouldBe parameter.index
             }
         }
     }
 
-    @Nested
-    inner class PlusParameterTests {
+    "Plus Parameter Tests" - {
 
-        @Test
-        fun `Should be able to create linear expression builder on plus operation`() {
+        "Should be able to create linear expression builder on plus operation" {
             val p1 = Parameter(coefficient = 10.0, index = 1)
             val p2 = Parameter(coefficient = 20.0, index = 2)
 
             val result = (p1 + p2).build()
 
             with(result) {
-                assertThat(coefficients).containsExactly(p1.coefficient, p2.coefficient)
-                assertThat(constant).isEqualTo(0.0)
+                coefficients shouldContainExactly listOf(p1.coefficient, p2.coefficient)
+                constant shouldBe 0.0
             }
         }
     }
 
-    @Nested
-    inner class PlusMinusNumberTests {
+    "Plus Minus Number Tests" - {
 
-        @Test
-        fun `Should be able to create linear expression builder on plus operation`() {
+        "Should be able to create linear expression builder on plus operation" {
             val parameter = Parameter(coefficient = 10.0, index = 1)
 
             val result = (parameter + 20).build()
 
             with(result) {
-                assertThat(coefficients).containsExactly(parameter.coefficient)
-                assertThat(constant).isEqualTo(20.0)
+                coefficients shouldContainExactly listOf(parameter.coefficient)
+                constant shouldBe 20.0
             }
         }
 
-        @Test
-        fun `Should be able to create linear expression builder on minus operation`() {
+        "Should be able to create linear expression builder on minus operation" {
             val parameter = Parameter(coefficient = 10.0, index = 1)
 
             val result = (parameter - 20).build()
 
             with(result) {
-                assertThat(coefficients).containsExactly(parameter.coefficient)
-                assertThat(constant).isEqualTo(-20.0)
+                coefficients shouldContainExactly listOf(parameter.coefficient)
+                constant shouldBe -20.0
             }
         }
     }
-}
+})
