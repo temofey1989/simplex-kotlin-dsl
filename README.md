@@ -1,5 +1,5 @@
 ![example event parameter](https://github.com/temofey1989/simplex-kotlin-dsl/actions/workflows/build.yml/badge.svg?branch=main)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=temofey1989_simplex-kotlin-dsl&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=temofey1989_simplex-kotlin-dsl)
+[![Code Quality](https://github.com/temofey1989/simplex-kotlin-dsl/actions/workflows/code-quality.yml/badge.svg)](https://github.com/temofey1989/simplex-kotlin-dsl/actions/workflows/code-quality.yml)
 [![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 
 # Overview

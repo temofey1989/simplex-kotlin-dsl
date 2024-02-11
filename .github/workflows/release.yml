@@ -1,0 +1,39 @@
+name: Release
+
+on:
+  release:
+    types: [ published ]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 17
+      - name: Inject Gradle Script
+        run: echo 'apply(from = "https://raw.githubusercontent.com/temofey1989/oss-release-action/main/release.gradle.kts")' >> build.gradle.kts
+      - uses: gradle/gradle-build-action@v2
+        id: gradle
+        with:
+          arguments: -Pversion=${{github.event.release.name}} build publishToSonatype closeAndReleaseSonatypeStagingRepository
+        env:
+          PROJECT_DESCRIPTION: ${{github.event.repository.description}}
+          LICENSE_NAME: The Apache License, Version 2.0
+          LICENSE_URL: https://www.apache.org/licenses/LICENSE-2.0.txt
+          SCM_URL: ${{github.server_url}}/${{github.repository}}
+          SCM_CONNECTION: scm:git:${{github.repositoryUrl}}
+          SCM_DEVELOPER_CONNECTION: scm:git:ssh://github.com:${{github.repository}}
+          DEVELOPER_ID: ${{github.event.repository.owner.login}}
+          DEVELOPER_NAME: ${{github.event.repository.owner.name}}
+          DEVELOPER_EMAIL: ${{github.event.repository.owner.email}}
+
+          ORG_GRADLE_PROJECT_signingKeyId: ${{secrets.SIGNING_KEY_ID}}
+          ORG_GRADLE_PROJECT_signingKey: ${{secrets.SIGNING_KEY}}
+          ORG_GRADLE_PROJECT_signingPassword: ${{secrets.SIGNING_PASSWORD}}
+
+          ORG_GRADLE_PROJECT_sonatypeNexusUrl: https://s01.oss.sonatype.org/service/local/
+          ORG_GRADLE_PROJECT_sonatypeSnapshotRepositoryUrl: https://s01.oss.sonatype.org/content/repositories/snapshots/
+          ORG_GRADLE_PROJECT_ossrhUsername: ${{secrets.OSSRH_USERNAME}}
+          ORG_GRADLE_PROJECT_ossrhPassword: ${{secrets.OSSRH_PASSWORD}}

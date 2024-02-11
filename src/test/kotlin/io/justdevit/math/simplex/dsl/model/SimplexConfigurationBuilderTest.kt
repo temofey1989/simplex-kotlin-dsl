@@ -7,48 +7,38 @@ import io.justdevit.math.simplex.dsl.model.Goal.MIN
 import io.justdevit.math.simplex.dsl.x1
 import io.justdevit.math.simplex.dsl.x2
 import io.justdevit.math.simplex.dsl.x3
+import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldHaveSize
+import io.kotest.matchers.shouldBe
 import org.apache.commons.math3.optim.nonlinear.scalar.GoalType.MINIMIZE
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Nested
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.junit.jupiter.params.ParameterizedTest
-import org.junit.jupiter.params.provider.Arguments
-import org.junit.jupiter.params.provider.Arguments.of
-import org.junit.jupiter.params.provider.MethodSource
 
-internal class SimplexConfigurationBuilderTest {
+class SimplexConfigurationBuilderTest : FreeSpec({
 
-    companion object {
 
-        @JvmStatic
-        fun parameterIndexData() = buildList<Arguments> {
-            with(SimplexConfigurationBuilder()) {
-                add(of(1.x1, 1))
-                add(of(1.x2, 2))
-                add(of(1.x3, 3))
-                add(of(1.x4, 4))
-                add(of(1.x5, 5))
-                add(of(1.x6, 6))
-                add(of(1.x7, 7))
-                add(of(1.x8, 8))
-                add(of(1.x9, 9))
+    with(SimplexConfigurationBuilder()) {
+        mapOf(
+            1.x1 to 1,
+            1.x2 to 2,
+            1.x3 to 3,
+            1.x4 to 4,
+            1.x5 to 5,
+            1.x6 to 6,
+            1.x7 to 7,
+            1.x8 to 8,
+            1.x9 to 9,
+        ).forEach { (parameter, expectedIndex) ->
+            "Parameter should have correct index" {
+                parameter.coefficient shouldBe 1.0
+                parameter.index shouldBe expectedIndex
             }
-        }.stream()
+        }
     }
 
-    @ParameterizedTest
-    @MethodSource("parameterIndexData")
-    fun `Parameter should have correct index`(parameter: Parameter, expectedIndex: Int) {
-        assertThat(parameter.coefficient).isEqualTo(1.0)
-        assertThat(parameter.index).isEqualTo(expectedIndex)
-    }
+    "BuildTests" - {
 
-    @Nested
-    inner class BuildTests {
-
-        @Test
-        fun `Should reject build without linear constraints`() {
+        "Should reject build without linear constraints" {
             val builder = SimplexConfigurationBuilder()
             with(builder) {
                 2 * x1 to MAX
@@ -57,8 +47,7 @@ internal class SimplexConfigurationBuilderTest {
             assertThrows<IllegalStateException> { builder.build(true) }
         }
 
-        @Test
-        fun `Should reject build without linear objective function`() {
+        "Should reject build without linear objective function" {
             val builder = SimplexConfigurationBuilder()
             with(builder) {
                 x1 eq 10
@@ -67,8 +56,7 @@ internal class SimplexConfigurationBuilderTest {
             assertThrows<IllegalStateException> { builder.build(true) }
         }
 
-        @Test
-        fun `Should be able to build simplex configuration`() {
+        "Should be able to build simplex configuration" {
             val builder = SimplexConfigurationBuilder()
             with(builder) {
                 x1 ge 10
@@ -80,14 +68,13 @@ internal class SimplexConfigurationBuilderTest {
             val result = builder.build(true)
 
             with(result) {
-                assertThat(linearConstraints.constraints).hasSize(3)
-                assertThat(objectiveFunction.coefficients.getEntry(0)).isEqualTo(1.0)
-                assertThat(objectiveFunction.constantTerm).isEqualTo(0.0)
-                assertThat(goal).isEqualTo(MINIMIZE)
-                assertThat(strictNonNegativeParameters).isTrue
+                linearConstraints.constraints shouldHaveSize 3
+                objectiveFunction.coefficients.getEntry(0) shouldBe 1.0
+                objectiveFunction.constantTerm shouldBe 0.0
+                goal shouldBe MINIMIZE
+                strictNonNegativeParameters.shouldBeTrue()
             }
         }
     }
 
-
-}
+})
