@@ -8,16 +8,20 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
         with:
           java-version: 17
+          distribution: 'liberica'
+
       - name: Inject Gradle Script
         run: echo 'apply(from = "https://raw.githubusercontent.com/temofey1989/oss-release-action/main/release.gradle.kts")' >> build.gradle.kts
-      - uses: gradle/gradle-build-action@v2
-        id: gradle
-        with:
-          arguments: -Pversion=${{github.event.release.name}} build publishToSonatype closeAndReleaseSonatypeStagingRepository
+
+      - uses: gradle/actions/setup-gradle@v3
+
+      - run: ./gradlew -Pversion=${{github.event.release.name}} build publishToSonatype closeAndReleaseSonatypeStagingRepository
         env:
           PROJECT_DESCRIPTION: ${{github.event.repository.description}}
           LICENSE_NAME: The Apache License, Version 2.0
