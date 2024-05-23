@@ -1,10 +1,11 @@
 import org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED
 import org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED
 import org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.9.22"
+    kotlin("jvm") version "2.0.0"
 }
 
 repositories {
@@ -31,12 +32,12 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 
 tasks {
     withType<KotlinCompile> {
-        kotlinOptions {
+        compilerOptions {
             freeCompilerArgs = listOf(
                 "-Xjsr305=strict",
                 "-Xcontext-receivers",
             )
-            jvmTarget = java.sourceCompatibility.toString()
+            jvmTarget = JVM_17
         }
     }
 
