@@ -5,16 +5,14 @@ import org.apache.commons.math3.optim.nonlinear.scalar.GoalType.MAXIMIZE
 import org.apache.commons.math3.optim.nonlinear.scalar.GoalType.MINIMIZE
 
 /**
- * Represents minimal version of Linear Objective function goal.
+ * Represents a minimal version of Linear Objective function goal.
  */
 enum class Goal(
-
     /**
-     * Goal type from Apache Common Math library.
+     * Goal type from the Apache Common Math library.
      */
-    val type: GoalType
-
+    val type: GoalType,
 ) {
     MIN(MINIMIZE),
-    MAX(MAXIMIZE)
+    MAX(MAXIMIZE),
 }

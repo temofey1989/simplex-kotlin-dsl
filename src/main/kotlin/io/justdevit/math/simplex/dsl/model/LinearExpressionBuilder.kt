@@ -10,7 +10,6 @@ import io.justdevit.math.simplex.dsl.extensions.negate
  */
 @SimplexDslMarker
 class LinearExpressionBuilder {
-
     /**
      * Map of index to parameters.
      */
@@ -23,13 +22,13 @@ class LinearExpressionBuilder {
 
     /**
      * Maximal index of the linear expression.
-     * Used for coefficient list.
+     * Used for a coefficient list.
      */
     private var maxIndex: Int = -1
 
     /**
      * Adds parameter to the list of parameters.
-     * In case of parameter exists with such index, coefficient will be summarized.
+     * In case of parameter exists with such an index, coefficient will be summarized.
      *
      * @param parameter Parameter to add.
      * @return This instance of the builder.
@@ -82,12 +81,10 @@ class LinearExpressionBuilder {
      * @param number Number to remove.
      * @return This instance of the builder.
      */
-    operator fun minus(number: Number): LinearExpressionBuilder {
-        return plus(-number.toDouble())
-    }
+    operator fun minus(number: Number): LinearExpressionBuilder = plus(-number.toDouble())
 
     /**
-     * Adds parameter to the builder based on X value.
+     * Adds a parameter to the builder based on X value.
      *
      * @param x X-value.
      * @return This instance of the builder.
@@ -107,19 +104,20 @@ class LinearExpressionBuilder {
     operator fun minus(x: X): LinearExpressionBuilder = add(Parameter(coefficient = -1.0, index = x.index))
 
     /**
-     * Builds instance of the linear expression.
+     * Builds an instance of the linear expression.
      *
      * @return Instance of the linear expression.
      *
      * @see LinearExpression
      */
-    fun build() = LinearExpression(
-        coefficients = coefficientList,
-        constant = constant
-    )
+    fun build() =
+        LinearExpression(
+            coefficients = coefficientList,
+            constant = constant,
+        )
 
     /**
-     * List of coefficients based on maximal index.
+     * List of coefficients based on a maximal index.
      */
     private val coefficientList: List<Double>
         get() {

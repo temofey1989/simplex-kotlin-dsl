@@ -15,7 +15,6 @@ import org.apache.commons.math3.optim.linear.Relationship.LEQ
  */
 @SimplexDslMarker
 class SimplexConfigurationBuilder {
-
     /**
      * List of linear constraint configurations.
      */
@@ -99,7 +98,7 @@ class SimplexConfigurationBuilder {
     }
 
     /**
-     * Adds greater or equal linear constraint on linear expression builder.
+     * Adds greater or equal linear constraint on a linear expression builder.
      *
      * @param value Value to linear equation.
      */
@@ -134,11 +133,12 @@ class SimplexConfigurationBuilder {
      * @param value Value to linear equation.
      */
     infix fun Parameter.le(value: Number) {
-        linearConstraintConfigs += LinearConstraintConfig(
-            expression = LinearExpressionBuilder().add(this).build(),
-            relationship = LEQ,
-            value = value.toDouble()
-        )
+        linearConstraintConfigs +=
+            LinearConstraintConfig(
+                expression = LinearExpressionBuilder().add(this).build(),
+                relationship = LEQ,
+                value = value.toDouble(),
+            )
     }
 
     /**
@@ -147,11 +147,12 @@ class SimplexConfigurationBuilder {
      * @param value Value to linear equation.
      */
     infix fun Parameter.ge(value: Number) {
-        linearConstraintConfigs += LinearConstraintConfig(
-            expression = LinearExpressionBuilder().add(this).build(),
-            relationship = GEQ,
-            value = value.toDouble()
-        )
+        linearConstraintConfigs +=
+            LinearConstraintConfig(
+                expression = LinearExpressionBuilder().add(this).build(),
+                relationship = GEQ,
+                value = value.toDouble(),
+            )
     }
 
     /**
@@ -160,11 +161,12 @@ class SimplexConfigurationBuilder {
      * @param value Value to linear equation.
      */
     infix fun Parameter.eq(value: Number) {
-        linearConstraintConfigs += LinearConstraintConfig(
-            expression = LinearExpressionBuilder().add(this).build(),
-            relationship = EQ,
-            value = value.toDouble()
-        )
+        linearConstraintConfigs +=
+            LinearConstraintConfig(
+                expression = LinearExpressionBuilder().add(this).build(),
+                relationship = EQ,
+                value = value.toDouble(),
+            )
     }
 
     /**
@@ -240,7 +242,7 @@ class SimplexConfigurationBuilder {
             linearConstraints = LinearConstraintSet(linearConstraints),
             objectiveFunction = objectiveFunction!!,
             goal = goal!!.type,
-            strictNonNegativeParameters = strictNonNegativeParameters
+            strictNonNegativeParameters = strictNonNegativeParameters,
         )
     }
 
@@ -254,32 +256,30 @@ class SimplexConfigurationBuilder {
                 LinearConstraint(
                     it.expression.coefficients.convertToSizedArray(biggestCoefficientIndex),
                     it.relationship,
-                    it.value + it.expression.constant
+                    it.value + it.expression.constant,
                 )
             }
         }
 
     /**
-     * Converts list to matrix of target size.
+     * Converts a list to matrix of target size.
      *
      * @param targetSize Target size of the matrix column.
-     * @return Converted list to sized array.
+     * @return Converted a list to a sized array.
      */
-    private fun List<Double>.convertToSizedArray(targetSize: Int) =
-        toDoubleArray().extentSizeTo(targetSize)
+    private fun List<Double>.convertToSizedArray(targetSize: Int) = toDoubleArray().extentSizeTo(targetSize)
 
     /**
-     * Extends array with zeros to target size.
+     * Extends an array with zeros to the target size.
      *
      * @param targetSize Target size of the array.
      * @return Extended array.
      */
-    private fun DoubleArray.extentSizeTo(targetSize: Int) =
-        if (targetSize == size) this else copyInto(DoubleArray(targetSize) { 0.0 })
+    private fun DoubleArray.extentSizeTo(targetSize: Int) = if (targetSize == size) this else copyInto(DoubleArray(targetSize) { 0.0 })
 
     private data class LinearConstraintConfig(
         val expression: LinearExpression,
         val relationship: Relationship,
-        val value: Double
+        val value: Double,
     )
 }

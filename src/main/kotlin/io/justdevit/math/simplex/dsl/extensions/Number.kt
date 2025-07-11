@@ -26,7 +26,7 @@ fun Number.x(index: Int) = Parameter(coefficient = toDouble(), index = index)
 operator fun Number.times(x: X) = Parameter(coefficient = toDouble(), index = x.index)
 
 /**
- * Creates linear expression builder for parameter.
+ * Creates a linear expression builder for parameter.
  *
  * @param parameter Parameter.
  * @return Instance of the expression builder.
@@ -42,7 +42,7 @@ operator fun Number.plus(parameter: Parameter): LinearExpressionBuilder {
 }
 
 /**
- * Creates linear expression builder for parameter.
+ * Creates a linear expression builder for parameter.
  * Parameter will be negated.
  *
  * @param parameter Parameter.

@@ -11,7 +11,7 @@ import io.justdevit.math.simplex.dsl.model.Parameter
 fun Parameter.negate() = copy(coefficient = -coefficient)
 
 /**
- * Creates linear expression builder for parameter.
+ * Creates a linear expression builder for parameter.
  *
  * @param other Parameter.
  * @return Instance of the expression builder.
@@ -27,7 +27,7 @@ operator fun Parameter.plus(other: Parameter): LinearExpressionBuilder {
 }
 
 /**
- * Creates linear expression builder for parameter.
+ * Creates a linear expression builder for parameter.
  *
  * @param number Number to be added.
  * @return Instance of the expression builder.
@@ -38,7 +38,7 @@ operator fun Parameter.plus(other: Parameter): LinearExpressionBuilder {
 operator fun Parameter.plus(number: Number) = number.plus(this)
 
 /**
- * Creates linear expression builder for parameter.
+ * Creates a linear expression builder for parameter.
  *
  * @param number Number to be added.
  * @return Instance of the expression builder.
@@ -47,5 +47,3 @@ operator fun Parameter.plus(number: Number) = number.plus(this)
  * @see Parameter
  */
 operator fun Parameter.minus(number: Number) = (-number.toDouble()).plus(this)
-
-

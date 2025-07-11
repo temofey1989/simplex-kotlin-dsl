@@ -17,7 +17,10 @@ import org.apache.commons.math3.optim.linear.SimplexSolver
  *
  * @see SimplexSolver
  */
-fun simplex(strictNonNegativeParameters: Boolean = true, block: SimplexConfigurationBuilder.() -> Unit): PointValuePair {
+fun simplex(
+    strictNonNegativeParameters: Boolean = true,
+    block: SimplexConfigurationBuilder.() -> Unit,
+): PointValuePair {
     val builder = SimplexConfigurationBuilder()
     builder.block()
     return SimplexSolver().optimize(builder.build(strictNonNegativeParameters))

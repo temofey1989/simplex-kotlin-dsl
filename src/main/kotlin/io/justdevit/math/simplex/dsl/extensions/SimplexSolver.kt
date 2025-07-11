@@ -18,5 +18,5 @@ fun SimplexSolver.optimize(config: SimplexConfiguration): PointValuePair =
         config.linearConstraints,
         config.objectiveFunction,
         config.goal,
-        NonNegativeConstraint(config.strictNonNegativeParameters)
+        NonNegativeConstraint(config.strictNonNegativeParameters),
     )

@@ -5,7 +5,7 @@ import io.justdevit.math.simplex.dsl.model.Parameter
 import io.justdevit.math.simplex.dsl.model.X
 
 /**
- * Creates instance of the X-parameter.
+ * Creates an instance of the X-parameter.
  *
  * @param index Parameter index.
  */
@@ -26,7 +26,7 @@ operator fun X.unaryMinus() = Parameter(coefficient = -1.0, index = index)
 operator fun X.times(number: Number) = Parameter(coefficient = number.toDouble(), index = index)
 
 /**
- * Creates linear expression builder with two X-parameters.
+ * Creates a linear expression builder with two X-parameters.
  *
  * @return Instance of the linear expression builder.
  */
@@ -38,7 +38,7 @@ operator fun X.plus(other: X): LinearExpressionBuilder {
 }
 
 /**
- * Creates linear expression builder with two X-parameters (second with negated coefficient).
+ * Creates a linear expression builder with two X-parameters (second with negated coefficient).
  *
  * @return Instance of the linear expression builder.
  */
@@ -50,7 +50,7 @@ operator fun X.minus(other: X): LinearExpressionBuilder {
 }
 
 /**
- * Creates linear expression builder with parameter and constant.
+ * Creates a linear expression builder with parameter and constant.
  *
  * @return Instance of the linear expression builder.
  */
@@ -62,15 +62,15 @@ operator fun X.plus(number: Number): LinearExpressionBuilder {
 }
 
 /**
- * Creates linear expression builder with parameter and negated constant.
+ * Creates a linear expression builder with parameter and negated constant.
  *
  * @return Instance of the linear expression builder.
  */
 operator fun X.minus(number: Number): LinearExpressionBuilder = plus(-number.toDouble())
 
 /**
- * Creates linear expression builder with two parameters.
- * First is created based on X-parameter.
+ * Creates a linear expression builder with two parameters.
+ * The first is created based on X-parameter.
  *
  * @return Instance of the linear expression builder.
  */
@@ -82,8 +82,8 @@ operator fun X.plus(parameter: Parameter): LinearExpressionBuilder {
 }
 
 /**
- * Creates linear expression builder with two parameters.
- * First is created based on X-parameter.
+ * Creates a linear expression builder with two parameters.
+ * The first is created based on X-parameter.
  * Second with negated coefficient.
  *
  * @return Instance of the linear expression builder.
