@@ -1,0 +1,42 @@
+# -------------------------------------------------------------------------------------------------------------------------------------------------- #
+
+[versions]
+
+kotest = '5.9.1'
+kotlin = '2.2.0'
+kotlinter = '5.1.1'
+mockk = '1.14.4'
+commons-math3 = '3.6.1'
+
+# -------------------------------------------------------------------------------------------------------------------------------------------------- #
+
+[plugins]
+
+kotlin-jvm = { id = 'org.jetbrains.kotlin.jvm', version.ref = 'kotlin' }
+kotlinter = { id = 'org.jmailen.kotlinter', version.ref = 'kotlinter' }
+
+# -------------------------------------------------------------------------------------------------------------------------------------------------- #
+
+[libraries]
+
+# Math
+commons-math3 = { group = 'org.apache.commons', name = 'commons-math3', version.ref = 'commons-math3' }
+
+# Testing
+kotest-runner-junit5 = { group = 'io.kotest', name = 'kotest-runner-junit5', version.ref = 'kotest' }
+kotest-assertions-core = { group = 'io.kotest', name = 'kotest-assertions-core', version.ref = 'kotest' }
+kotest-property = { group = 'io.kotest', name = 'kotest-property', version.ref = 'kotest' }
+mockk = { group = 'io.mockk', name = 'mockk', version.ref = 'mockk' }
+
+# -------------------------------------------------------------------------------------------------------------------------------------------------- #
+
+[bundles]
+
+testing = [
+    'kotest-assertions-core',
+    'kotest-property',
+    'kotest-runner-junit5',
+    'mockk',
+]
+
+# -------------------------------------------------------------------------------------------------------------------------------------------------- #

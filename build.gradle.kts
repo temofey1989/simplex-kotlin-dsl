@@ -1,11 +1,13 @@
+import org.gradle.api.JavaVersion.VERSION_21
 import org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED
 import org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED
 import org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "2.0.0"
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlinter)
 }
 
 repositories {
@@ -13,31 +15,26 @@ repositories {
     mavenCentral()
 }
 
-val commonsMath3: String by project
-val kotestVersion: String by project
-val mockkVersion: String by project
-
 dependencies {
-    implementation(kotlin("stdlib"))
-    implementation("org.apache.commons:commons-math3:$commonsMath3")
-
-    testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
-    testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
-    testImplementation("io.kotest:kotest-property:$kotestVersion")
-
-    testImplementation("io.mockk:mockk:$mockkVersion")
+    api(libs.commons.math3)
+    testImplementation(libs.bundles.testing)
 }
 
-java.sourceCompatibility = JavaVersion.VERSION_17
+java.sourceCompatibility = VERSION_21
 
 tasks {
+    formatKotlin {
+    }
+
+    lintKotlin {
+    }
+
     withType<KotlinCompile> {
         compilerOptions {
+            jvmTarget = JvmTarget.fromTarget(java.sourceCompatibility.majorVersion)
             freeCompilerArgs = listOf(
                 "-Xjsr305=strict",
-                "-Xcontext-receivers",
             )
-            jvmTarget = JVM_17
         }
     }
 

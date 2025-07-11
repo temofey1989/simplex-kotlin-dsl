@@ -13,7 +13,7 @@ jobs:
 
       - uses: actions/setup-java@v4
         with:
-          java-version: 17
+          java-version: 21
           distribution: 'liberica'
 
       - name: Inject Gradle Script
@@ -37,7 +37,5 @@ jobs:
           ORG_GRADLE_PROJECT_signingKey: ${{secrets.SIGNING_KEY}}
           ORG_GRADLE_PROJECT_signingPassword: ${{secrets.SIGNING_PASSWORD}}
 
-          ORG_GRADLE_PROJECT_sonatypeNexusUrl: https://s01.oss.sonatype.org/service/local/
-          ORG_GRADLE_PROJECT_sonatypeSnapshotRepositoryUrl: https://s01.oss.sonatype.org/content/repositories/snapshots/
           ORG_GRADLE_PROJECT_ossrhUsername: ${{secrets.OSSRH_USERNAME}}
           ORG_GRADLE_PROJECT_ossrhPassword: ${{secrets.OSSRH_PASSWORD}}
